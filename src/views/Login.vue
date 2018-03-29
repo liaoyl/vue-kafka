@@ -41,6 +41,7 @@
     methods: {
       handleReset2 () {
         this.$refs.ruleForm2.resetFields()
+        console.info(11111)
       },
       handleSubmit2 (ev) {
         // var _this = this;
