@@ -35,7 +35,6 @@
 
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-			<el-button type="danger" :disabled="this.sels.length===0">批量删除</el-button>
 			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="5" :total="total" style="float:right;">
 			</el-pagination>
 		</el-col>
@@ -44,7 +43,7 @@
 </template>
 
 <script>
-	import { getTopicsListPage } from '../../api/api'
+	import { getTopicsListPage, removeTopic } from '../../api/api'
 
 	export default {
   data () {
@@ -87,6 +86,24 @@
         this.topics = res.data.topics
         this.listLoading = false
       })
+    },
+    // 删除
+    handleDel: function (index, row) {
+    this.$confirm('确认删除该topic吗?', '提示', {
+    type: 'warning'
+    }).then(() => {
+    this.listLoading = true
+    let para = { topic: row.topic }
+    removeTopic(para).then((res) => {
+    this.listLoading = false
+    this.$message({
+    message: '删除成功',
+    type: 'success'
+    })
+    this.getTopics()
+    })
+    }).catch(() => {
+    })
     }
   },
   mounted () {

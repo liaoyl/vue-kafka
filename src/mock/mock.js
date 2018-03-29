@@ -75,5 +75,19 @@ export default {
         }, 1000)
       })
     })
+
+    // 删除Topic
+    mock.onDelete('/kafka/topics/remove').reply(config => {
+      let { topic } = config.params
+      _Topics = _Topics.filter(u => u.topic !== topic)
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '删除成功'
+          }])
+        }, 500)
+      })
+    })
   }
 }
