@@ -17,15 +17,17 @@
 
 		<!--列表-->
 		<el-table :data="topics" highlight-current-row v-loading="listLoading" style="width: 100%;">
-			<el-table-column prop="topic" label="topic" sortable>
+			<el-table-column prop="topic" min-width="30%" label="topic" sortable>
 			</el-table-column>
-			<el-table-column prop="numPartition" label="numPartition" sortable>
+			<el-table-column prop="numPartition" min-width="25%" label="numPartition" sortable>
 			</el-table-column>
-			<el-table-column prop="isrRate" label="isrRate" :formatter="formatRate" sortable>
+			<el-table-column prop="isrRate" min-width="20%" label="isrRate" :formatter="formatRate" sortable>
 			</el-table-column>
 			<el-table-column label="操作">
 				<template slot-scope="scope">
-					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+					<el-button size="small" @click="">详情</el-button>
+					<el-button size="small" @click="">查看消息</el-button>
+					<el-button size="small" @click="">配置操作</el-button>
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -93,5 +95,7 @@
 }
 </script>
 <style scoped>
-
+.el-button--small{
+   margin-left: 0px;
+}
 </style>
