@@ -42,7 +42,7 @@
 </template>
 
 <script>
-	import { getTopicsBrief } from '../../api/api'
+	import { getTopicsListPage } from '../../api/api'
 
 	export default {
   data () {
@@ -80,7 +80,7 @@
         topic: this.filters.topic
       }
       this.listLoading = true
-      getTopicsBrief(para).then((res) => {
+      getTopicsListPage(para).then((res) => {
         this.total = res.data.total
         this.topics = res.data.topics
         this.listLoading = false
