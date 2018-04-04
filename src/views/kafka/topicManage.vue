@@ -68,6 +68,7 @@
       formatRate: function (row, column) {
         let temp = row.isrRate * 100
         return temp + '%'
+
       },
       handleCurrentChange (val) {
         this.page = val
@@ -106,6 +107,7 @@
       }
     },
     mounted () {
+      console.info(111)
       this.getTopics()
     }
   }
