@@ -7,7 +7,7 @@ import './assets/theme/theme-darkblue/index.css'
 import VueRouter from 'vue-router'
 import store from './vuex/store'
 import Vuex from 'vuex'
-import routes from './routes'
+import router from './router'
 import Mock from './mock'
 import 'font-awesome/css/font-awesome.min.css'
 Mock.bootstrap()
@@ -15,10 +15,6 @@ Mock.bootstrap()
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
-
-const router = new VueRouter({
-  routes
-})
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
@@ -37,3 +33,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+})

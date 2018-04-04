@@ -1,7 +1,12 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Topics } from './data/topic'
+import { brokerList, brokerConfigList } from './data/broker'
+import { consumerList } from './data/consumer'
 let _Topics = Topics
+let _brokerList = brokerList
+let _brokerConfigList = brokerConfigList
+let _consumerList = consumerList
 export default {
   /**
    * mock bootstrap
@@ -76,17 +81,48 @@ export default {
       })
     })
 
-    // 删除Topic
-    mock.onDelete('/kafka/topics/remove').reply(config => {
-      let { topic } = config.params
-      _Topics = _Topics.filter(u => u.topic !== topic)
+    // 获取broker列表
+    mock.onGet('/kafka/brokers/page').reply(config => {
+      let { page } = config.params
+      let mockBrokerList = _brokerList.filter(brokerList => {
+        return true
+      })
+      let total = mockBrokerList.length
+      mockBrokerList = mockBrokerList.filter((u, index) => index < 5 * page && index >= 5 * (page - 1))
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            code: 200,
-            msg: '删除成功'
+            total: total,
+            list: mockBrokerList
           }])
-        }, 500)
+        }, 1000)
+      })
+    })
+
+    // 获取配置详情
+    mock.onGet('/kafka/brokers/configDetail').reply(config => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, _brokerConfigList])
+        }, 1000)
+      })
+    })
+
+    // 获取consumer详情
+    mock.onGet('/kafka/consumerGroup/page').reply(config => {
+      let { page } = config.params
+      let mockConsumerList = _consumerList.filter(consumerList => {
+        return true
+      })
+      let total = mockConsumerList.length
+      mockConsumerList = mockConsumerList.filter((u, index) => index < 5 * page && index >= 5 * (page - 1))
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            list: mockConsumerList
+          }])
+        }, 1000)
       })
     })
   }
