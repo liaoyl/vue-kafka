@@ -3,7 +3,7 @@
     <section>
 
 
-      2222222
+      2222
       <!--列表-->
       <el-table
         v-loading="listLoading"
