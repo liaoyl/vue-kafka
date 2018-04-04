@@ -1,11 +1,7 @@
 <template>
 	<section>
     <section>
-
-
       2222222
-
-
       <!--列表-->
       <el-table
         v-loading="listLoading"
